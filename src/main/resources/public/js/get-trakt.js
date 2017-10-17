@@ -89,3 +89,50 @@ $("#movie-search-btn").click(function () {
 	});
 
 });
+
+
+$( document ).ready(function() {
+
+    $.ajax({
+        url: "/api/getMovieList",
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (result) {
+           $('#reg-movs').html(result.length);
+        },
+        error: function (error) {
+            alert("Nothing Found");
+        }
+    });
+
+    $.ajax({
+        url: "/api/getWatchList",
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (result) {
+           $('#watch-movs').html(result.length);
+        },
+        error: function (error) {
+            alert("Nothing Found");
+        }
+    });
+
+    $.ajax({
+        url: "/api/getWatchedMovies",
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (result) {
+           $('#watched-movs').html(result.length);
+        },
+        error: function (error) {
+            alert("Nothing Found");
+        }
+    });
+
+
+
+
+});
