@@ -1,6 +1,16 @@
-$(document).ready(function() {
+var table;
+var selectedRow;
 
-	var URL = "https://api-staging.trakt.tv/search/movie?query=Star%20Wars";
+// Search button, haalt film op adhv Naam van Trakt API
+$("#movie-search-btn").click(function () {
+	
+	console.log("Button pressed");
+	
+	var search = $("#moviesearch").val();
+	var encodedSearch = encodeURIComponent(search);
+
+	var URL = "https://api-staging.trakt.tv/search/movie?query=" + encodedSearch;
+
 
 	$.ajax({
 		url: URL,
@@ -23,23 +33,58 @@ $(document).ready(function() {
 			   movieArray.push(result[i].movie.ids.trakt);
 			   movieArray.push(result[i].movie.title);
 			   movieArray.push(result[i].movie.year);
+			   movieArray.push("<a class=\"btn btn-primary\" id=\"addButton\">Add</a>");
 			   
 			   ajaxArray.push(movieArray);
 			   
 			   
 		   }
 		   
-		   $('#example').DataTable( {
+		   console.log(ajaxArray);
+		   
+		   table = $('#example').DataTable( {
 				data: ajaxArray,
 				columns: [
 					{ title: "Poster" },
 					{ title: "Title" },
-					{ title: "Year" }
+					{ title: "Year" },
+					{ title: "Add" }
 				]
 			} );
+
+			$('#example tbody').on("click", "#addButton", function () {
+                console.log("Addbutton clicked");
+                var row = table.row($(this).parents("tr"));
+                selectedRow = row;
+                //console.log(row.data()[0]);
+				
+				var movieObj = {
+					
+					id: row.data()[0],
+					name: row.data()[1],
+					year: row.data()[2],					
+				
+				}
+
+				 $.ajax({
+                    url: "/api/addMovie",
+                    type: "POST",
+                    data: JSON.stringify(movieObj),
+                    contentType: "application/json; charset=utf-8",
+                    success: function(result) {
+                        console.log(result);
+                        alert("Movie added to database");
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                });
+
+            });
+
 		},
 		error: function (error) {
-			
+			alert("Nothing Found");
 		}
 	});
 

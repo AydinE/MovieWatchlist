@@ -20,9 +20,9 @@ public class MovieController {
     MovieRepository movieRepository;
 
     @RequestMapping(value = "/addMovie", method = RequestMethod.POST)
-    public Movie addMovie(@RequestBody Movie room) {
+    public Movie addMovie(@RequestBody Movie movie) {
 
-        return movieRepository.save(room);
+        return movieRepository.save(movie);
 
     }
 

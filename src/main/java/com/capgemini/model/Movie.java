@@ -11,13 +11,23 @@ public class Movie {
 
     private int year;
 
-    private int tmdbId;
-
     private boolean onWatchList;
 
     private boolean watched;
 
     private String name;
+
+    public Movie() {
+
+    }
+
+    public Movie(int id, int year, String name) {
+
+        this.id = id;
+        this.year = year;
+        this.name = name;
+
+    }
 
     public int getYear() {
         return year;
@@ -25,14 +35,6 @@ public class Movie {
 
     public void setYear(int year) {
         this.year = year;
-    }
-
-    public int getTmdbId() {
-        return tmdbId;
-    }
-
-    public void setTmdbId(int tmdbId) {
-        this.tmdbId = tmdbId;
     }
 
     public boolean isOnWatchList() {
