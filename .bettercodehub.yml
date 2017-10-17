@@ -1,0 +1,9 @@
+exclude:
+- /src/main/resources/public/dist/js/sb-admin-2.js
+- /src/main/resources/public/js/bootstrap.js
+- /src/main/resources/public/js/sb-admin-2.js
+- /src/main/resources/public/vendor/.*
+component_depth: 1
+languages:
+- java
+- javascript
